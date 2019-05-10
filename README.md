@@ -39,3 +39,10 @@ python facenet/src/classifier.py TRAIN dataset/34_lb_done/  trained-models/facen
 
 4. 100 classes , landmark blur done :
 100_lb_done
+
+
+5. 83 done , landmark blur done : 
+python facenet/src/classifier.py TRAIN dataset/200above/  trained-models/facenet/casiabollyself1.pb trained-models/facenet/my_tida_classifier.pkl-casiabollyself-83+71_lb_not_done --batch_size 1000
+
+python facenet/src/classifier.py CLASSIFY dataset/200above/  trained-models/facenet/casiabollyself1.pb trained-models/facenet/my_tida_classifier.pkl-casiabollyself-83+71_lb_not_done --batch_size 1000 
+
