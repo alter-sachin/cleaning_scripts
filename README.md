@@ -48,3 +48,22 @@ python facenet/src/classifier.py CLASSIFY dataset/200above/  trained-models/face
 
 
 python facenet/src/classifier.py CLASSIFY dataset/200above/this trained-models/facenet/casiabollyself1.pb trained-models/facenet/my_tida_classifier.pkl-casiabollyself-83_lb_not_done --batch_size 1000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+raspivid -o - -t 9999999 -w 1280 -h 720 --hflip | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://192.168.7.96:8800/}' :demux=h264
