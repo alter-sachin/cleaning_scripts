@@ -53,14 +53,8 @@ python facenet/src/classifier.py CLASSIFY dataset/200above/this trained-models/f
 
 
 
-
-
-
-
-
-
-
-
+Running a cpp file....
+g++ test.cpp -pthread -I../../build/include/ -L../../build/lib/Release -lsioclient
 
 
 
