@@ -96,7 +96,7 @@ class Point_distance:
     		if motion_datas:
     			imu = motion_datas[0].imu
     		img = np.hstack((left_data_frame, right_data_frame))
-    		img2 = np.hstack((left_data_rectified_frame, right_data_rectified_frame))
+    		#img2 = np.hstack((left_data_rectified_frame, right_data_rectified_frame))
     		cv2.imshow('frame',img)
     		
     		print(type(img))
@@ -113,20 +113,29 @@ class Point_distance:
 
 
     		####filtering########
-
-    		array1 = type(left_data_frame)
-    		print(array1)
-    		binary_mask  = self.main_filter(left_data_frame)
-    		print("binary mask")
-    		print(binary_mask)
+    		#print("hellomaaa")
+    		#array1 = type(left_data_rectified_frame)
+    		#print(array1)
+    		#binary_mask  = self.main_filter(left_data_rectified_frame)
+    		#print("binary mask")
+    		#print(binary_mask)
     		#depth_data_frame = np.bitwise_and(depth_data_frame,binary_mask)
     		########
-    		if(left_data_rectified.img.frame_id>0):
-    			cv2.imshow("frame2",img2)
     		
-    		if(depth_data.img.frame_id > 0):
+    		
+    		if(depth_data.img.frame_id > 0 and left_data_rectified.img.frame_id>0):
+    			for i in range(64):
+    				left_data_rectified_frame[:,i] = 0
+    			cv2.imshow("frame3",left_data_rectified_frame)
+    			binary_mask  = self.main_filter(left_data_rectified_frame)
+    			binary_colorized = cv2.applyColorMap(cv2.convertScaleAbs(binary_mask, alpha=0.04), cv2.COLORMAP_JET)
+    			cv2.imshow("frame4",binary_colorized)
+    			result = depth_data_frame.copy()
+    			result[binary_mask==0] = 0
+	    		print("binary mask")
+	    		print("")
     			print("final frontier")
-    			print((depth_data_frame))
+    			print((depth_data_frame.shape))
     			#depth_data_frame = np.bitwise_and(depth_data_frame,binary_mask)
     			threshold = 500
     			super_threshold_indices = depth_data_frame < threshold
@@ -136,8 +145,8 @@ class Point_distance:
     			print("out")
     			print(out)
 
-    			ignore_zeros_colorized = cv2.applyColorMap(cv2.convertScaleAbs(depth_data_frame, alpha=0.01), cv2.COLORMAP_JET)
-    			binary_colorized = cv2.applyColorMap(cv2.convertScaleAbs(binary_mask, alpha=0.04), cv2.COLORMAP_JET)
+    			ignore_zeros_colorized = cv2.applyColorMap(cv2.convertScaleAbs(result, alpha=0.01), cv2.COLORMAP_JET)
+    			#binary_colorized = cv2.applyColorMap(cv2.convertScaleAbs(binary_mask, alpha=0.04), cv2.COLORMAP_JET)
     			try:
     				obs_distance = min((out))*.001
     				print(obs_distance)
